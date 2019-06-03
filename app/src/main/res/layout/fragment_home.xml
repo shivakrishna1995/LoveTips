@@ -7,61 +7,72 @@
     tools:context=".homeFragment">
 
     <android.support.constraint.ConstraintLayout
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ViewFlipper
-            android:id="@+id/ltImageSliderId"
-            android:layout_width="0dp"
-            android:layout_height="180dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></ViewFlipper>
-
-        <TextView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:background="@drawable/grey_frame"
-            android:text="Your Add"
-            android:fontFamily="@font/roboto_slab"
-            android:textSize="12dp"
-            android:gravity="center"
-            android:textAlignment="center"/>
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView7"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="127dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/grey_frame"
-            android:fontFamily="@font/roboto_slab"
-            android:text="Your Content"
-            android:textAlignment="center"
-            android:textSize="12dp"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView7" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                <ViewFlipper
+                    android:id="@+id/ltImageSliderId"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"></ViewFlipper>
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:fontFamily="@font/roboto_slab"
+                    android:gravity="center"
+                    android:text="Your Add"
+                    android:textAlignment="center"
+                    android:textSize="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/fhRecyclerViewId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/roboto_slab"
+                    android:gravity="center"
+                    android:overScrollMode="never"
+                    android:text="Your Content"
+                    android:textAlignment="center"
+                    android:textSize="12dp" />
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginBottom="0dp"
             android:background="@drawable/grey_frame"
             android:fontFamily="@font/roboto_slab"
+            android:gravity="center"
             android:text="Your Add"
             android:textAlignment="center"
-            android:gravity="center"
             android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ltImageSliderId" />
+            app:layout_constraintStart_toStartOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

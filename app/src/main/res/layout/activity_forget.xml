@@ -86,7 +86,10 @@
                 android:fontFamily="@font/roboto_slab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+                app:layout_constraintTop_toBottomOf="@+id/textView13"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                />
 
             <Button
                 android:id="@+id/afResetPasswordId"

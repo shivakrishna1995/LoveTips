@@ -70,7 +70,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/ahUsernameId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -81,7 +81,9 @@
                 android:fontFamily="@font/roboto_slab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                app:layout_constraintTop_toBottomOf="@+id/textView5"
+                android:inputType="text"
+                android:maxLines="1"/>
 
             <TextView
                 android:id="@+id/textView6"
@@ -93,10 +95,10 @@
                 android:fontFamily="@font/roboto_slab"
                 android:text="Password"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText2" />
+                app:layout_constraintTop_toBottomOf="@+id/ahUsernameId" />
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/ahPasswordId"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
@@ -106,7 +108,9 @@
                 android:fontFamily="@font/roboto_slab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                android:maxLines="1"
+                android:inputType="textPassword" />
 
             <TextView
                 android:id="@+id/ahForgetPasswordId"
@@ -114,8 +118,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_slab"
                 android:text="Forget Password?"
-                app:layout_constraintEnd_toEndOf="@+id/editText"
-                app:layout_constraintTop_toBottomOf="@+id/editText" />
+                app:layout_constraintEnd_toEndOf="@+id/ahPasswordId"
+                app:layout_constraintTop_toBottomOf="@+id/ahPasswordId" />
 
             <Button
                 android:id="@+id/ahSignInId"
@@ -127,9 +131,9 @@
                 android:text="Sign In"
                 android:textColor="@color/White"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/editText"
+                app:layout_constraintEnd_toEndOf="@+id/ahPasswordId"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/editText"
+                app:layout_constraintStart_toStartOf="@+id/ahPasswordId"
                 app:layout_constraintTop_toBottomOf="@+id/ahForgetPasswordId" />
 
             <TextView

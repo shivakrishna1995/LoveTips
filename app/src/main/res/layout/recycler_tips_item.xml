@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Sample Item 1"
         android:fontFamily="@font/roboto_slab"
-        android:textSize="15dp"
-        android:textAlignment="center"
+        android:textSize="11dp"
         android:padding="12dp"
         android:elevation="1dp"
         android:background="#ffffff"/>

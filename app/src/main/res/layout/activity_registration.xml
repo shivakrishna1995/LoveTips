@@ -68,7 +68,10 @@
                 android:fontFamily="@font/roboto_slab"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+                app:layout_constraintTop_toBottomOf="@+id/textView10"
+                android:inputType="text"
+                android:maxLines="1"
+                />
 
             <TextView
                 android:id="@+id/textView6"
@@ -84,7 +87,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto_slab"
-                app:layout_constraintEnd_toEndOf="@+id/arFullNameId"
+                android:inputType="text"
+                android:maxLines="1"                app:layout_constraintEnd_toEndOf="@+id/arFullNameId"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView6"
                 app:layout_constraintTop_toBottomOf="@+id/textView6" />
@@ -104,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto_slab"
+                android:maxLines="1"
                 app:layout_constraintEnd_toEndOf="@+id/arMobileId"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView11"
@@ -129,10 +134,11 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView12"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword"
+                android:maxLines="1"/>
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/arSignUp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -140,6 +146,7 @@
                 android:fontFamily="@font/roboto_slab"
                 android:text="Sign Up"
                 android:textColor="@color/White"
+                android:maxLines="1"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/arPasswordId"
                 app:layout_constraintStart_toStartOf="@+id/arPasswordId"
@@ -153,9 +160,9 @@
                 android:fontFamily="@font/roboto_slab"
                 android:text="Existing User? Log In"
                 android:textSize="16dp"
-                app:layout_constraintEnd_toEndOf="@+id/button"
-                app:layout_constraintStart_toStartOf="@+id/button"
-                app:layout_constraintTop_toBottomOf="@+id/button" />
+                app:layout_constraintEnd_toEndOf="@+id/arSignUp"
+                app:layout_constraintStart_toStartOf="@+id/arSignUp"
+                app:layout_constraintTop_toBottomOf="@+id/arSignUp" />
 
         </android.support.constraint.ConstraintLayout>
 

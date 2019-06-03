@@ -12,15 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.List;
 
 public class RecyclerTips extends RecyclerView.Adapter<RecyclerTips.MyHolder> {
 
-    private List<String> itemsList;
+    private List<JSONObject> itemsList;
     private Context context;
     private FragmentManager fragmentManager;
 
-    public RecyclerTips(Context context, List<String> itemsList, FragmentManager fragmentManager){
+    public RecyclerTips(Context context, List<JSONObject> itemsList, FragmentManager fragmentManager){
         this.itemsList = itemsList;
         this.context = context;
         this.fragmentManager = fragmentManager;
@@ -34,13 +37,21 @@ public class RecyclerTips extends RecyclerView.Adapter<RecyclerTips.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyHolder myHolder, final int i) {
-        myHolder.itemTextView.setText(itemsList.get(i));
+        try {
+            myHolder.itemTextView.setText(itemsList.get(i).getString("Heading"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         myHolder.itemTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Fragment fragment = new TipsDescriptionFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("Title",itemsList.get(i));
+                try {
+                    bundle.putString("TID",itemsList.get(i).getString("Id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 fragment.setArguments(bundle);
                 fragmentManager.beginTransaction().addToBackStack("TIPS_TAG").replace(R.id.cltFragmetnFrameId,fragment).commit();
             }
