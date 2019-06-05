@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,6 +23,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -29,6 +31,9 @@ public class LoveTips extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
     //private ImageButton backButton;
+    private TextView navBarUsername;
+    private SharedPreferences session;
+    private DrawerLayout drawer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,7 @@ public class LoveTips extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -55,6 +60,17 @@ public class LoveTips extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentHandler(new homeFragment(),"");
+        session = getSharedPreferences("CUST_ID",MODE_PRIVATE);
+        navBarUsername = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nhlpUsernameId);
+        updateNavHeaderUsername();
+
+        drawer.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerStateChanged(int newState) {
+                super.onDrawerStateChanged(newState);
+                updateNavHeaderUsername();
+            }
+        });
     }
 
     private void fragmentHandler(Fragment fragment, String TAG) {
@@ -91,15 +107,19 @@ public class LoveTips extends AppCompatActivity
         if (id == R.id.nav_home) {
             //backButton.setVisibility(View.INVISIBLE);
             fragmentHandler(new homeFragment(),"HOME_TAG");
+            updateNavHeaderUsername();
         } else if (id == R.id.nav_tips) {
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new TIpsFragment(),"TIPS_TAG");
+            updateNavHeaderUsername();
         }  else if (id == R.id.nav_privacy) {
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new PolicyFragment(),"PRIVACY_TAG");
+            updateNavHeaderUsername();
         }else if (id == R.id.nav_profile) {
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new ProfileFragment(),"PROFILE_TAG");
+            updateNavHeaderUsername();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -123,4 +143,9 @@ public class LoveTips extends AppCompatActivity
 
         }*/
     }
+
+    public void updateNavHeaderUsername(){
+        navBarUsername.setText(session.getString("FullName",""));
+    }
+
 }

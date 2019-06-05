@@ -22,10 +22,12 @@
                 android:orientation="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-                <ViewFlipper
+                <ss.com.bannerslider.Slider
                     android:id="@+id/ltImageSliderId"
                     android:layout_width="match_parent"
-                    android:layout_height="180dp"></ViewFlipper>
+                    android:layout_height="180dp"
+                    app:slider_interval="3000"
+                    app:slider_loopSlides="true"></ss.com.bannerslider.Slider>
 
                 <TextView
                     android:id="@+id/textView14"

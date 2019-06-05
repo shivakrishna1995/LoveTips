@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -54,7 +55,7 @@ public class TipsDescriptionFragment extends Fragment {
     }
 
     private void loadTipsDescription() {
-        new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try{
@@ -65,13 +66,13 @@ public class TipsDescriptionFragment extends Fragment {
                         Glide.with(getContext()).load(data.getString("Image")).into(logo);
                     }
                 }catch (Exception e){
-
+                    Toast.makeText(getContext(),"Error",Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                Toast.makeText(getContext(),"Error",Toast.LENGTH_LONG).show();
             }
         }){
             @Override
@@ -83,6 +84,7 @@ public class TipsDescriptionFragment extends Fragment {
                 return params;
             }
         };
+        queue.add(stringRequest);
     }
 
 }
