@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -19,6 +20,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONObject;
 
@@ -37,11 +39,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private RequestQueue queue;
     private String url1 = "http://hkcodezone.com/love_tips/Api/UpdateProfile";
     private String url2 = "http://hkcodezone.com/love_tips/Api/ChangePassword";
+    private ImageView pBackground, plogo;
+    private SharedPreferences settings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        settings = getActivity().getSharedPreferences("SETTINGS",MODE_PRIVATE);
+        pBackground = (ImageView)view.findViewById(R.id.fpBackgroundImageId);
+        plogo = (ImageView)view.findViewById(R.id.profile_image);
+        if(!settings.getString("PROFILE_BACKGROUND_IMAGE","").equals("") && !settings.getString("PROFILE_BACKGROUND_LOGO","").equals("")){
+            Glide.with(getContext()).load(settings.getString("PROFILE_BACKGROUND_IMAGE","")).into(pBackground);
+            Glide.with(getContext()).load(settings.getString("PROFILE_BACKGROUND_LOGO","")).into(plogo);
+        }
 
         session = getActivity().getSharedPreferences("CUST_ID", MODE_PRIVATE);
         fullname = (EditText)view.findViewById(R.id.fpFullNameId);

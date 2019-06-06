@@ -1,8 +1,10 @@
 package com.example.krish.lovetips;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,27 +29,44 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.bumptech.glide.Glide;
+
 public class LoveTips extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
     //private ImageButton backButton;
     private TextView navBarUsername;
-    private SharedPreferences session;
+    private SharedPreferences session, settings;
     private DrawerLayout drawer;
+    private ImageView navHeaderlogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_love_tips);
+        View view = LayoutInflater.from(LoveTips.this).inflate(R.layout.activity_love_tips,null);
+
+        settings = getSharedPreferences("SETTINGS",MODE_PRIVATE);
+        int color  = settings.getInt("APP_COLOR",Color.parseColor("#E82433"));
+
+        Toolbar toolbar = (Toolbar)view.findViewById(R.id.toolbar);
+        NavigationView navigationView = (NavigationView)view.findViewById(R.id.nav_view);
+        toolbar.setBackgroundColor(color);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(color);
+        }
+        navigationView.getHeaderView(0).setBackgroundColor(color);
+
+        navHeaderlogo = (ImageView)navigationView.getHeaderView(0).findViewById(R.id.imageView);
+        String url = settings.getString("APP_MAIN_LOGO","");
+        if(!url.equals("")){
+            Glide.with(LoveTips.this).load(url).into(navHeaderlogo);
+        }
+
+        setContentView(view);
 
         //backButton = (ImageButton)findViewById(R.id.topBarLeftIconId);
         //backButton.setOnClickListener(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -56,7 +75,6 @@ public class LoveTips extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         fragmentHandler(new homeFragment(),"");
@@ -120,6 +138,21 @@ public class LoveTips extends AppCompatActivity
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new ProfileFragment(),"PROFILE_TAG");
             updateNavHeaderUsername();
+        }else if(id == R.id.nav_moreApps){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(settings.getString("MORE_APP_LINK","")));
+            intent.setPackage("com.android.vending");
+            startActivity(intent);
+            updateNavHeaderUsername();
+        }else if(id == R.id.nac_logout){
+            session.edit().clear();
+            startActivity(new Intent(LoveTips.this,Home.class));
+            finish();
+        }else if(id == R.id.nav_rate){
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(settings.getString("RATE_APP_LINK","")));
+            intent.setPackage("com.android.vending");
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
