@@ -14,6 +14,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -29,6 +31,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.ImageViewTarget;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
+//import com.google.android.gms.ads.MobileAds;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageListener;
 
@@ -60,6 +65,8 @@ public class homeFragment extends Fragment {
     private Slider imageSlider;
     private List<String> imagesList;
 
+    //private AdView topAdView, bottomAdView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,6 +83,16 @@ public class homeFragment extends Fragment {
         Slider.init(new MyImageLoadingService(getContext()));
         imageSlider = (Slider)view.findViewById(R.id.ltImageSliderId);
         imagesList = new ArrayList<>();
+
+
+        //MobileAds.initialize(getContext(),"ca-app-pub-8838424019062946/8160264386");
+
+        //topAdView = (AdView)view.findViewById(R.id.adView);
+        //AdRequest adRequest = new AdRequest.Builder().build();
+        //topAdView.loadAd(adRequest);
+        //bottomAdView = (AdView)view.findViewById(R.id.adView1);
+        //AdRequest adRequest1 = new AdRequest.Builder().build();
+        //topAdView.loadAd(adRequest1);
 
         loadImages();
         return view;

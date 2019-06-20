@@ -13,7 +13,7 @@
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView7"
+            app:layout_constraintBottom_toTopOf="@+id/adView1"
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
@@ -29,18 +29,14 @@
                     app:slider_interval="3000"
                     app:slider_loopSlides="true"></ss.com.bannerslider.Slider>
 
-                <TextView
-                    android:id="@+id/textView14"
+             <!--   <com.google.android.gms.ads.AdView
+                    xmlns:ads="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/adView"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:fontFamily="@font/roboto_slab"
-                    android:gravity="center"
-                    android:text="Your Add"
-                    android:textAlignment="center"
-                    android:textSize="12dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    android:layout_height="wrap_content"
+                    ads:adSize="SMART_BANNER"
+                    ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+                </com.google.android.gms.ads.AdView> -->
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/fhRecyclerViewId"
@@ -59,22 +55,17 @@
 
         </android.support.v4.widget.NestedScrollView>
 
-        <TextView
-            android:id="@+id/textView7"
+       <!-- <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView1"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginBottom="0dp"
-            android:background="@drawable/grey_frame"
-            android:fontFamily="@font/roboto_slab"
-            android:gravity="center"
-            android:text="Your Add"
-            android:textAlignment="center"
-            android:textSize="12dp"
+            android:layout_height="wrap_content"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" >
+        </com.google.android.gms.ads.AdView> -->
 
     </android.support.constraint.ConstraintLayout>
 

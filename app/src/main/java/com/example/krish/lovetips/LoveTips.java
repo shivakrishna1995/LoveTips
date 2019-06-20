@@ -21,24 +21,40 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class LoveTips extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener, RewardedVideoAdListener {
 
     //private ImageButton backButton;
     private TextView navBarUsername;
-    private SharedPreferences session, settings;
+    private SharedPreferences session, settings, remember;
     private DrawerLayout drawer;
     private ImageView navHeaderlogo;
+    private RewardedVideoAd mRewardedVideoAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +105,37 @@ public class LoveTips extends AppCompatActivity
                 updateNavHeaderUsername();
             }
         });
+
+        remember = getSharedPreferences("REMEMBER",MODE_PRIVATE);
+
+        MobileAds.initialize(LoveTips.this, "ca-app-pub-3940256099942544~3347511713");
+
+        RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.adView);
+        AdView mAdView = new AdView(LoveTips.this);
+        mAdView.setAdSize(AdSize.SMART_BANNER);
+        mAdView.setAdUnitId(settings.getString("BANER_ADD_LINK",""));
+        adContainer.addView(mAdView);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+        //MobileAds.initialize(LoveTips.this, "ca-app-pub-3940256099942544~3347511713");
+        //adView = (AdView)findViewById(R.id.adView);
+        //adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+        //adRequest = new AdRequest.Builder().build();
+        //if(adView.getAdSize() != null || adView.getAdUnitId() != null){
+        //    adView.loadAd(adRequest);
+        //}
+
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(LoveTips.this);
+        mRewardedVideoAd.setRewardedVideoAdListener(this);
+
+        loadRewardedVideoAd();
+    }
+
+    private void loadRewardedVideoAd() {
+        mRewardedVideoAd.loadAd(settings.getString("REWAD_VIDEO_LINK",""),
+                new AdRequest.Builder().build());
     }
 
     private void fragmentHandler(Fragment fragment, String TAG) {
@@ -123,35 +170,48 @@ public class LoveTips extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
+            loadRewardedVideoAd();
             //backButton.setVisibility(View.INVISIBLE);
             fragmentHandler(new homeFragment(),"HOME_TAG");
             updateNavHeaderUsername();
         } else if (id == R.id.nav_tips) {
+            loadRewardedVideoAd();
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new TIpsFragment(),"TIPS_TAG");
             updateNavHeaderUsername();
         }  else if (id == R.id.nav_privacy) {
+            loadRewardedVideoAd();
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new PolicyFragment(),"PRIVACY_TAG");
             updateNavHeaderUsername();
         }else if (id == R.id.nav_profile) {
+            loadRewardedVideoAd();
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new ProfileFragment(),"PROFILE_TAG");
             updateNavHeaderUsername();
         }else if(id == R.id.nav_moreApps){
+            loadRewardedVideoAd();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(settings.getString("MORE_APP_LINK","")));
             intent.setPackage("com.android.vending");
             startActivity(intent);
             updateNavHeaderUsername();
         }else if(id == R.id.nac_logout){
-            session.edit().clear();
+            session.edit().clear().commit();
             startActivity(new Intent(LoveTips.this,Home.class));
             finish();
         }else if(id == R.id.nav_rate){
+            loadRewardedVideoAd();
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(settings.getString("RATE_APP_LINK","")));
             intent.setPackage("com.android.vending");
+            startActivity(intent);
+        }else if(id == R.id.nav_share){
+            loadRewardedVideoAd();
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT,"I suggest this app for you : https://play.google.com/store/apps/details?id=com.android.chrome");
+            intent.setType("text/plain");
             startActivity(intent);
         }
 
@@ -181,4 +241,71 @@ public class LoveTips extends AppCompatActivity
         navBarUsername.setText(session.getString("FullName",""));
     }
 
+    @Override
+    public void onRewarded(RewardItem reward) {
+        //Toast.makeText(this, "onRewarded! currency: " + reward.getType() + "  amount: " +
+          //      reward.getAmount(), Toast.LENGTH_SHORT).show();
+        // Reward the user.
+    }
+
+    @Override
+    public void onRewardedVideoAdLeftApplication() {
+        //Toast.makeText(this, "onRewardedVideoAdLeftApplication",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdClosed() {
+        //Toast.makeText(this, "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdFailedToLoad(int errorCode) {
+        //Toast.makeText(this, "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoAdLoaded() {
+        //Toast.makeText(this, "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+        mRewardedVideoAd.show();
+    }
+
+    @Override
+    public void onRewardedVideoAdOpened() {
+        //Toast.makeText(this, "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoStarted() {
+        //Toast.makeText(this, "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
+
+        //mRewardedVideoAd.destroy(LoveTips.this);
+        //Toast.makeText(this, "onRewardedVideoCompleted", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        //mRewardedVideoAd.resume(this);
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        //mRewardedVideoAd.pause(this);
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        //mRewardedVideoAd.destroy(this);
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }

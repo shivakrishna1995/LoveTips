@@ -28,6 +28,7 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.Console;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -64,8 +65,9 @@ public class MainActivity extends Activity {
             @Override
             public void onResponse(JSONObject response) {
                 try{
-
+                    System.out.println("-------------success"+response);
                     if(response.getInt("success") == 1){
+
                         final JSONArray array = response.getJSONArray("data");
                         if(array.getJSONObject(0).getString("Key").equals("APP_SWITCH") && array.getJSONObject(0).getString("Value").equals("1")){
                             if(array.getJSONObject(7).getString("Value").equals("")){
@@ -100,11 +102,13 @@ public class MainActivity extends Activity {
                                                         .putString("MORE_APP_LINK",array.getJSONObject(8).getString("Value"))
                                                         .putString("PRIVACY_POLICY_LINK",array.getJSONObject(9).getString("Value"))
                                                         .putString("RATE_APP_LINK",array.getJSONObject(10).getString("Value"))
+                                                        .putString("BANER_ADD_LINK",array.getJSONObject(12).getString("Value"))
+                                                        .putString("REWAD_VIDEO_LINK",array.getJSONObject(13).getString("Value"))
                                                         .commit();
                                                 startActivity(new Intent(MainActivity.this,Home.class));
                                                 finish();
                                             }catch (Exception e){
-
+                                                Toast.makeText(MainActivity.this,"Error",Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     });
@@ -133,13 +137,14 @@ public class MainActivity extends Activity {
                         }
                     }
                 }catch(Exception e){
-                    Toast.makeText(getApplicationContext(),e+"",Toast.LENGTH_LONG).show();
+                    System.out.println("---------"+e);
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_LONG).show();
+                System.out.println("---------"+error);
+
             }
         });
         queue.add(stringRequest);

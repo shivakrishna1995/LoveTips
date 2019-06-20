@@ -21,6 +21,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -54,6 +58,8 @@ public class TIpsFragment extends Fragment {
         itemsList = new ArrayList<>();
         session = getActivity().getSharedPreferences("CUST_ID",MODE_PRIVATE);
         gettignTips();
+
+
 
         return view;
     }

@@ -20,6 +20,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import org.json.JSONObject;
 
@@ -36,6 +41,7 @@ public class TipsDescriptionFragment extends Fragment {
     private RequestQueue queue;
     private String url = "http://hkcodezone.com/love_tips/Api/TipsDetails";
     private SharedPreferences session;
+    private RewardedVideoAd mRewardedVideoAd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +56,57 @@ public class TipsDescriptionFragment extends Fragment {
 
 
         loadTipsDescription();
+
+        MobileAds.initialize(getContext(), "ca-app-pub-3940256099942544~3347511713");
+        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(getContext());
+        mRewardedVideoAd.loadAd("ca-app-pub-3940256099942544/5224354917",
+                new AdRequest.Builder().build());
+
+        RewardedVideoAdListener rewardedVideoAdListener = new RewardedVideoAdListener() {
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                mRewardedVideoAd.show();
+                //Toast.makeText(getActivity(), "onRewardedVideoAdLoaded", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdOpened() {
+                //Toast.makeText(getActivity(), "onRewardedVideoAdOpened", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoStarted() {
+                //Toast.makeText(getActivity(), "onRewardedVideoStarted", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                //Toast.makeText(getActivity(), "onRewardedVideoAdClosed", Toast.LENGTH_SHORT).show();
+                ////// UpdateDataBase
+            }
+
+            @Override
+            public void onRewarded(RewardItem reward) {
+                //Toast.makeText(getActivity(), getString(R.string.on_rewarded_video) + " " +  reward.getAmount() + " " + reward.getType(), Toast.LENGTH_LONG).show();
+                // Reward the user.
+            }
+
+            @Override
+            public void onRewardedVideoAdLeftApplication() {
+                //Toast.makeText(getActivity(), "onRewardedVideoAdLeftApplication", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int i) {
+                //Toast.makeText(getActivity(), "onRewardedVideoAdFailedToLoad", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onRewardedVideoCompleted() {
+
+            }
+        };
+        mRewardedVideoAd.setRewardedVideoAdListener(rewardedVideoAdListener);
 
         return view;
     }
