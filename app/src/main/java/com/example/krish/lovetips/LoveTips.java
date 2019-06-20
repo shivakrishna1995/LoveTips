@@ -110,7 +110,7 @@ public class LoveTips extends AppCompatActivity
         remember = getSharedPreferences("REMEMBER",MODE_PRIVATE);
 
         RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.adView);
-        if(settings.getString("ADMOB_SWITCH","").equals("OFF")){
+        if(settings.getString("ADMOB_SWITCH","").equals("ON")){
             MobileAds.initialize(LoveTips.this, "ca-app-pub-3940256099942544~3347511713");
 
             AdView mAdView = new AdView(LoveTips.this);
