@@ -7,6 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -109,7 +110,7 @@ public class LoveTips extends AppCompatActivity
         remember = getSharedPreferences("REMEMBER",MODE_PRIVATE);
 
         RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.adView);
-        if(settings.getString("ADMOB_SWITCH","").equals("ON")){
+        if(settings.getString("ADMOB_SWITCH","").equals("OFF")){
             MobileAds.initialize(LoveTips.this, "ca-app-pub-3940256099942544~3347511713");
 
             AdView mAdView = new AdView(LoveTips.this);
