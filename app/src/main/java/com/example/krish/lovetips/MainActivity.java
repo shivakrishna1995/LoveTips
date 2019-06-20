@@ -102,7 +102,7 @@ public class MainActivity extends Activity {
                                                         .putString("MORE_APP_LINK",array.getJSONObject(8).getString("Value"))
                                                         .putString("PRIVACY_POLICY_LINK",array.getJSONObject(9).getString("Value"))
                                                         .putString("RATE_APP_LINK",array.getJSONObject(10).getString("Value"))
-                                                        .putString("ADMOB_SWITCH",array.getJSONObject(12).getString("Value"))
+                                                        .putString("ADMOB_SWITCH",array.getJSONObject(11).getString("Value"))
                                                         .putString("BANER_ADD_LINK",array.getJSONObject(12).getString("Value"))
                                                         .putString("REWAD_VIDEO_LINK",array.getJSONObject(13).getString("Value"))
                                                         .commit();
