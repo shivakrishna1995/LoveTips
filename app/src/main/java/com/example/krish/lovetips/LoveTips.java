@@ -108,29 +108,33 @@ public class LoveTips extends AppCompatActivity
 
         remember = getSharedPreferences("REMEMBER",MODE_PRIVATE);
 
-        MobileAds.initialize(LoveTips.this, "ca-app-pub-3940256099942544~3347511713");
-
         RelativeLayout adContainer = (RelativeLayout) findViewById(R.id.adView);
-        AdView mAdView = new AdView(LoveTips.this);
-        mAdView.setAdSize(AdSize.SMART_BANNER);
-        mAdView.setAdUnitId(settings.getString("BANER_ADD_LINK",""));
-        adContainer.addView(mAdView);
+        if(settings.getString("ADMOB_SWITCH","").equals("ON")){
+            MobileAds.initialize(LoveTips.this, "ca-app-pub-3940256099942544~3347511713");
 
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+            AdView mAdView = new AdView(LoveTips.this);
+            mAdView.setAdSize(AdSize.SMART_BANNER);
+            mAdView.setAdUnitId(settings.getString("BANER_ADD_LINK",""));
+            adContainer.addView(mAdView);
 
-        //MobileAds.initialize(LoveTips.this, "ca-app-pub-3940256099942544~3347511713");
-        //adView = (AdView)findViewById(R.id.adView);
-        //adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-        //adRequest = new AdRequest.Builder().build();
-        //if(adView.getAdSize() != null || adView.getAdUnitId() != null){
-        //    adView.loadAd(adRequest);
-        //}
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mAdView.loadAd(adRequest);
 
-        mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(LoveTips.this);
-        mRewardedVideoAd.setRewardedVideoAdListener(this);
+            //MobileAds.initialize(LoveTips.this, "ca-app-pub-3940256099942544~3347511713");
+            //adView = (AdView)findViewById(R.id.adView);
+            //adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+            //adRequest = new AdRequest.Builder().build();
+            //if(adView.getAdSize() != null || adView.getAdUnitId() != null){
+            //    adView.loadAd(adRequest);
+            //}
 
-        loadRewardedVideoAd();
+            mRewardedVideoAd = MobileAds.getRewardedVideoAdInstance(LoveTips.this);
+            mRewardedVideoAd.setRewardedVideoAdListener(this);
+
+            loadRewardedVideoAd();
+        }else{
+            adContainer.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void loadRewardedVideoAd() {
