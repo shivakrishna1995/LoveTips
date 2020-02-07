@@ -1,4 +1,4 @@
-package com.example.krish.lovetips;
+package com.lovetips.krish.lovetips;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -1,15 +1,11 @@
-package com.example.krish.lovetips;
+package com.lovetips.krish.lovetips;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,17 +16,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.ads.AdRequest;
@@ -40,11 +29,6 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.google.android.gms.ads.rewarded.RewardedAd;
-import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
-
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class LoveTips extends AppCompatActivity
@@ -175,27 +159,37 @@ public class LoveTips extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_home) {
-            loadRewardedVideoAd();
+            if(settings.getString("ADMOB_SWITCH","").equals("ON")) {
+                loadRewardedVideoAd();
+            }
             //backButton.setVisibility(View.INVISIBLE);
             fragmentHandler(new homeFragment(),"HOME_TAG");
             updateNavHeaderUsername();
         } else if (id == R.id.nav_tips) {
-            loadRewardedVideoAd();
+            if(settings.getString("ADMOB_SWITCH","").equals("ON")) {
+                loadRewardedVideoAd();
+            }
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new TIpsFragment(),"TIPS_TAG");
             updateNavHeaderUsername();
         }  else if (id == R.id.nav_privacy) {
-            loadRewardedVideoAd();
+            if(settings.getString("ADMOB_SWITCH","").equals("ON")) {
+                loadRewardedVideoAd();
+            }
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new PolicyFragment(),"PRIVACY_TAG");
             updateNavHeaderUsername();
         }else if (id == R.id.nav_profile) {
-            loadRewardedVideoAd();
+            if(settings.getString("ADMOB_SWITCH","").equals("ON")) {
+                loadRewardedVideoAd();
+            }
             //backButton.setVisibility(View.VISIBLE);
             fragmentHandler(new ProfileFragment(),"PROFILE_TAG");
             updateNavHeaderUsername();
         }else if(id == R.id.nav_moreApps){
-            loadRewardedVideoAd();
+            if(settings.getString("ADMOB_SWITCH","").equals("ON")) {
+                loadRewardedVideoAd();
+            }
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(settings.getString("MORE_APP_LINK","")));
             intent.setPackage("com.android.vending");
@@ -206,13 +200,17 @@ public class LoveTips extends AppCompatActivity
             startActivity(new Intent(LoveTips.this,Home.class));
             finish();
         }else if(id == R.id.nav_rate){
-            loadRewardedVideoAd();
+            if(settings.getString("ADMOB_SWITCH","").equals("ON")) {
+                loadRewardedVideoAd();
+            }
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(settings.getString("RATE_APP_LINK","")));
             intent.setPackage("com.android.vending");
             startActivity(intent);
         }else if(id == R.id.nav_share){
-            loadRewardedVideoAd();
+            if(settings.getString("ADMOB_SWITCH","").equals("ON")) {
+                loadRewardedVideoAd();
+            }
             Intent intent = new Intent();
             intent.setAction(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT,"I suggest this app for you : https://play.google.com/store/apps/details?id=com.android.chrome");

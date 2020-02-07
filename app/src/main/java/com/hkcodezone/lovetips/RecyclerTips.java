@@ -1,6 +1,5 @@
-package com.example.krish.lovetips;
+package com.lovetips.krish.lovetips;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;

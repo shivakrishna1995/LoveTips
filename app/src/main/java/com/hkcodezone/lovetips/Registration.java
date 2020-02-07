@@ -1,4 +1,4 @@
-package com.example.krish.lovetips;
+package com.lovetips.krish.lovetips;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,8 +27,6 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static android.accounts.AccountManager.KEY_PASSWORD;
 
 public class Registration extends Activity implements View.OnClickListener {
 
